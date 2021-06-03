@@ -10,36 +10,40 @@ public class Node {
     public Node left;
     public Node right;
 
-    public Node(String _char, int valor){
+    public Node(String _char, int valor) {
         caractere = _char;
         freq = valor;
     }
 
-    public Node(String _char){
+    public Node(String _char) {
         caractere = _char;
         freq = 1;
     }
 
-    public Node(String _char, boolean _isLeaf){
+    public Node(String _char, boolean _isLeaf) {
         caractere = _char;
         freq = 1;
         isLeaf = _isLeaf;
     }
 
-    public Node(String _char, int valor, Node _left, Node _right){
+    public Node(String _char, int valor, Node _left, Node _right) {
         caractere = _char;
         freq = valor;
         left = _left;
         right = _right;
     }
 
-    public void setLeft(Node node){
+    public void setLeft(Node node) {
         left = node;
     }
 
-    public void setRight(Node node){
+    public void setRight(Node node) {
         right = node;
     }
 
-
+    @Override
+    public String toString() {
+        String str = this.caractere + "(" + this.freq + ") ";
+        return str;
+    }
 }
