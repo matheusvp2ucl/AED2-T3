@@ -143,14 +143,14 @@ public class Lista {
 
     // ##### Funções Extras #####
 
-    public Object getObjectPalavra(String _char){
+    public Object getObjectPalavra(String _char) {
         if (inicio == null) {
             return null;
         }
         No local = this.inicio;
         for (int i = 0; i < tamanho; i++) {
-            Node obj = (Node)local.info;
-            if( obj.caractere.equals(_char) ){
+            Node obj = (Node) local.info;
+            if (obj.caractere.equals(_char)) {
                 return obj;
             }
             local = local.proximo;
@@ -158,22 +158,22 @@ public class Lista {
         return null;
     }
 
-    public int getIndexMenorFreq(){
+    public int getIndexMenorFreq() {
         if (isEmpty()) {
             return -1;
         }
         int index = -1;
         int menor = 0;
-        
+
         No local = this.inicio;
         for (int i = 0; i < tamanho; i++) {
-            Node obj = (Node)local.info;
-            
-            if(i == 0){
+            Node obj = (Node) local.info;
+
+            if (i == 0) {
                 menor = obj.freq;
                 index = i;
-            }else{
-                if(obj.freq < menor){
+            } else {
+                if (obj.freq < menor) {
                     menor = obj.freq;
                     index = i;
                 }
@@ -188,9 +188,8 @@ public class Lista {
         String str = "";
         No local = this.inicio;
         for (int i = 0; i < tamanho; i++) {
-            Node obj = (Node)local.info;
-            str += obj.caractere + "(" + obj.freq + ") ";
-            local = local.proximo;            
+            str += local.info.toString() + "\n";
+            local = local.proximo;
         }
         return str;
     }
