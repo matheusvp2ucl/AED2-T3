@@ -183,12 +183,27 @@ public class Lista {
         return index;
     }
 
+    public Object getLetraBinario(String _char) {
+        if (inicio == null) {
+            return null;
+        }
+        No local = this.inicio;
+        for (int i = 0; i < tamanho; i++) {
+            Objeto obj = (Objeto) local.info;
+            if (obj.chave.equals(_char)) {
+                return obj;
+            }
+            local = local.proximo;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         String str = "";
         No local = this.inicio;
         for (int i = 0; i < tamanho; i++) {
-            str += local.info.toString() + "\n";
+            str += local.info.toString() + " ";
             local = local.proximo;
         }
         return str;

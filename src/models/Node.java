@@ -4,8 +4,6 @@ public class Node {
 
     public String caractere;
     public int freq;
-    public String binario = "";
-    public boolean isLeaf = false;
 
     public Node left;
     public Node right;
@@ -18,12 +16,6 @@ public class Node {
     public Node(String _char) {
         caractere = _char;
         freq = 1;
-    }
-
-    public Node(String _char, boolean _isLeaf) {
-        caractere = _char;
-        freq = 1;
-        isLeaf = _isLeaf;
     }
 
     public Node(String _char, int valor, Node _left, Node _right) {
@@ -46,4 +38,5 @@ public class Node {
         String str = this.caractere + "(" + this.freq + ") ";
         return str;
     }
+    
 }

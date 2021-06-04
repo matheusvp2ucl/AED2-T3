@@ -16,7 +16,7 @@ public class Objeto {
 
   @Override
   public String toString() {
-    String str = this.chave + ": " + this.valor;
+    String str = this.chave + ":" + this.valor;
     return str;
   }
 }
