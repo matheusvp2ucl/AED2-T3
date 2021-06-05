@@ -4,11 +4,18 @@ import models.*;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        FGM_Compacter compacter = new FGM_Compacter();
-        compacter.Compactar("palava teste");
+        String cabecalho = " :000¨s:001¨a:01¨t:100¨e:101¨p:1100¨l:1101¨v:1110¨r:1111";
+        String textoCompactado = "1100011101011110111101000100101001100101";
 
-        System.out.println(compacter.getCabecalho());
-        System.out.println(compacter.getTextoCompactado());
+        FGM_Compacter compacter = new FGM_Compacter();
+
+        // compacter.Compactar("palavra teste");
+
+        // System.out.println(compacter.getCabecalho());
+        // System.out.println(compacter.getTextoCompactado());
+
+        compacter.Descompactar(cabecalho, textoCompactado);
+        System.out.println( compacter.getTextoDescompactado() );
 
         // // Instaciação de Variaveis necessarias !
         // Lista arvore = new Lista();

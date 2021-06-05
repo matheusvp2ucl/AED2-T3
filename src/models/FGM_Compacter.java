@@ -7,35 +7,36 @@ public class FGM_Compacter {
     private Lista char_binarios = new Lista();
 
     private String texto;
-    private String binCabecalho;
+    private String binCabecalhoStr;
     private String textoCompactado;
 
-    private Lista cabecalho = new Lista();
+    private Lista MapCabecalho = new Lista();
+    private String cabecalho;
     private String textoDescompactado;
 
     /* Funções Internas Privadas */
 
-    private void GeraFrequencia(){
+    private void GeraFrequencia() {
         // Pega a frequencia de caracteres na string e mapeando dentro de uma
         // lista encadeada, ja com o Node para inserir na lista o mesmo.
         for (int i = 0; i < this.texto.length(); i++) {
             char caractere = this.texto.charAt(i);
             // Função criada na lista encadeada para buscar o caracter dentro da mesma
             // Caso não exista retorna null
-            Node obj = (Node) this.frequencia.getObjectPalavra( Character.toString(caractere) );
+            Node obj = (Node) this.frequencia.getObjectPalavra(Character.toString(caractere));
             // Se retornar null, iremos criar o caracter e inserir ja para a contagem da
             // frequencia
             // Se não retornar null, ele vai retornar o obj Node do caracter e somar mais 1
             // no atributo freq do objeto !
             if (obj == null) {
-                this.frequencia.insertEnd( new Node( Character.toString(caractere) ) );
+                this.frequencia.insertEnd(new Node(Character.toString(caractere)));
             } else {
                 obj.freq += 1;
             }
         }
     }
 
-    private void GeraArvoreRaiz(){
+    private void GeraArvoreRaiz() {
         // De acordo com a regra do Algoritimo de Huffman, pegando os 2 caracteres de
         // menor frequencia da lista
         // retornando e somando para criar uma arvore com os dois e inserindo no final
@@ -50,18 +51,18 @@ public class FGM_Compacter {
 
             int soma = nodeEsquerda.freq + nodeDireita.freq;
 
-            this.frequencia.insertEnd( new Node("Node", soma, nodeEsquerda, nodeDireita) );
+            this.frequencia.insertEnd(new Node("Node", soma, nodeEsquerda, nodeDireita));
         }
 
         this.raiz = (Node) this.frequencia.removeEnd();
     }
 
-    private void GeraBinarios(){
+    private void GeraBinarios() {
         this.RecursivaGeraBinarios(this.raiz, "", this.char_binarios);
-        this.binCabecalho = this.char_binarios.toString();
+        this.binCabecalhoStr = this.char_binarios.toString();
     }
 
-    private void Texto_to_Binario(){
+    private void Texto_to_Binario() {
         this.textoCompactado = "";
         // Faz a compactação das palavras, em Binario
         for (int i = 0; i < this.texto.length(); i++) {
@@ -75,11 +76,37 @@ public class FGM_Compacter {
         }
     }
 
-    private void Func_Auxiliar_Compactar(){
+    private void GeraCabecalhoLista() {
+        String[] baseSplit = this.cabecalho.split("¨");
+        for (String string : baseSplit) {
+            String[] base = string.split(":");
+            this.MapCabecalho.insertEnd(new Objeto(base[0], base[1]));
+        }
+    }
+
+    private void Binario_To_Texto() {
+        String joinBin = "";
+        for (int i = 0; i < this.textoCompactado.length(); i++) {
+            char binario = this.textoCompactado.charAt(i);
+            joinBin += binario;
+            Objeto obj = (Objeto) this.MapCabecalho.getBinarioLetra(joinBin);
+            if (obj != null) {
+                this.textoDescompactado += obj.chave;
+                joinBin = "";
+            }
+        }
+    }
+
+    private void Func_Auxiliar_Compactar() {
         this.GeraFrequencia();
         this.GeraArvoreRaiz();
         this.GeraBinarios();
-        this.Texto_to_Binario();        
+        this.Texto_to_Binario();
+    }
+
+    private void Func_Auxiliar_Descompactar(){
+        this.GeraCabecalhoLista();
+        this.Binario_To_Texto();
     }
 
     /* Funções auxiliares das funções principais */
@@ -91,7 +118,7 @@ public class FGM_Compacter {
             this.enterRight(r, _be, binarios);
         }
         if (!r.caractere.equals("Node")) {
-            binarios.insertEnd( new Objeto( r.caractere, _be ) );
+            binarios.insertEnd( new Objeto(r.caractere, _be) );
         }
         _be = "";
 
@@ -107,20 +134,29 @@ public class FGM_Compacter {
         this.RecursivaGeraBinarios(r.right, _be, binarios);
     }
 
-
     /* Funções Public de uso do Programa */
-    public void Compactar(String _texto){
+    public void Compactar(String _texto) {
         this.texto = _texto;
         this.Func_Auxiliar_Compactar();
     }
 
-    public String getCabecalho(){
-        return this.binCabecalho;
+    public void Descompactar(String _cabecalho, String _textoCompactado){
+        this.textoCompactado = _textoCompactado;
+        this.cabecalho = _cabecalho;
+        this.textoDescompactado = "";
+        this.Func_Auxiliar_Descompactar();
     }
 
-    public String getTextoCompactado(){
+    public String getCabecalho() {
+        return this.binCabecalhoStr;
+    }
+
+    public String getTextoCompactado() {
         return this.textoCompactado;
     }
 
+    public String getTextoDescompactado(){
+        return this.textoDescompactado;
+    }
 
 }
